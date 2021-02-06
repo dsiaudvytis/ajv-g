@@ -11,7 +11,7 @@ const handleFileUpload = (file, update) => {
       update(JSON.parse(content));
     } catch (error) {
       // if malformed JSON, throw error
-      alert('You just posted cringe.')
+      alert('The uploaded file contains invalid JSON. It was ignored and lost to time');
     }
   };
   fileReader.readAsText(file);
