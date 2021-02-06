@@ -1,3 +1,12 @@
 .main {
   font-family: sans-serif;
 }
+
+.hidden {
+  opacity: 0;
+}
+
+.uploadLabel {
+  border: solid 2px #000000;
+  padding: 5px 10px;
+}
