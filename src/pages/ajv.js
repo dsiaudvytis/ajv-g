@@ -30,15 +30,24 @@ export default connect(
     <main className={styles.main}>
       <title>Main page</title>
       <h1>Hello World</h1>
-      <label htmlFor="inputfile" className={styles.uploadLabel}>Upload JSON file</label>
-      <input
-        className={styles.hidden}
-        type="file"
-        name="inputfile"
-        id="inputfile"
-        accept="application/json"
-        onChange={e => handleFileUpload(e.target.files[0], updateDoc)}
-      />
+      <div className={styles.upload}>
+        <label htmlFor="inputfile" className={styles.uploadLabel}>Upload JSON file</label>
+        <input
+          className={styles.hiddenInput}
+          type="file"
+          name="inputfile"
+          id="inputfile"
+          accept="application/json"
+          onChange={e => handleFileUpload(e.target.files[0], updateDoc)}
+        />
+      </div>
+      <div className={styles.source}>
+        {!sourceDoc ? '' :
+          <pre>
+            {JSON.stringify(sourceDoc, true, 4)}
+          </pre>
+        }
+      </div>
     </main>
   )
 });
