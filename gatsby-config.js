@@ -2,5 +2,5 @@ module.exports = {
   siteMetadata: {
     title: "ajv-g",
   },
-  plugins: [],
+  plugins: [`gatsby-plugin-postcss`],
 };
