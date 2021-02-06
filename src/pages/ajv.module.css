@@ -1,3 +1,10 @@
+.header {
+  font-family: monospace;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
 .main {
   font-family: sans-serif;
 }

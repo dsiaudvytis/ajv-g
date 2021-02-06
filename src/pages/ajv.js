@@ -29,7 +29,7 @@ export default connect(
   return (
     <main className={styles.main}>
       <title>Main page</title>
-      <h1>Hello World</h1>
+      <h1 className={styles.header}>anotherJSONvalidator: {'{'} generator {'}'}</h1>
       <div className={styles.upload}>
         <label htmlFor="inputfile" className={styles.uploadLabel}>Upload JSON file</label>
         <input
