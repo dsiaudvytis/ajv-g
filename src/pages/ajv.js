@@ -2,6 +2,16 @@ import React from 'react';
 import styles from './ajv.module.css';
 import { connect } from 'react-redux';
 
+const JSONObject = ({ data }) => (
+  <div className={styles.outerObject}>
+    {Object.entries(data).map(([k, v]) => (
+      <div>
+        <div className={styles.key}>{k}: </div>
+      </div>
+    ))}
+  </div>
+)
+
 const handleFileUpload = (file, update) => {
   const fileReader = new FileReader();
   fileReader.onloadend = () => {
@@ -29,7 +39,7 @@ export default connect(
   return (
     <main className={styles.main}>
       <title>Main page</title>
-      <h1 className={styles.header}>anotherJSONvalidator: {'{'} generator {'}'}</h1>
+      <h1 className={styles.header}>{'{'} anotherJSONvalidator: "generator" {'}'}</h1>
       <div className={styles.upload}>
         <label htmlFor="inputfile" className={styles.uploadLabel}>Upload JSON file</label>
         <input
@@ -44,9 +54,14 @@ export default connect(
       <div className={styles.source}>
         {!sourceDoc ? '' :
           <pre>
-            {JSON.stringify(sourceDoc, true, 4)}
+            <JSONObject data={sourceDoc} />
           </pre>
         }
+      </div>
+      <div className={styles.rightPane}>
+        <pre>
+          {JSON.stringify(sourceDoc, true, 4)}
+        </pre>
       </div>
     </main>
   )
