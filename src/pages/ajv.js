@@ -9,19 +9,23 @@ const JSONObject = ({ data }) => (
     {Object.entries(data).map(([k, v]) => (
       <div key={k} className={`${styles.kvPair} ${isComposite(v) ? styles.compositeKV : ''}`}>
         <div className={styles.key}>{k}: {isComposite(v) ? '{' : ''}</div>
-        <div className={isComposite(v) ? '' : styles.value}>
-          {{
-            [true]: () => 'unexpected type',
-            [['number', 'string'].includes(typeof v)]: () => v,
-            [typeof v === 'boolean']: () => v.toString(),
-            [typeof v === 'object']: () => (<JSONObject data={v} />),
-            [Array.isArray(v)]: () => '<array>',
-            [v === null]: () => 'null',
-          }[true]()}
-        </div>
+        <JSONValue v={v} />
         {isComposite(v) ? <div>}</div> : ''}
       </div>
     ))}
+  </div>
+);
+
+const JSONValue = ({ v }) => (
+  <div className={isComposite(v) ? '' : styles.value}>
+    {{
+      [true]: () => 'unexpected type',
+      [['number', 'string'].includes(typeof v)]: () => v,
+      [typeof v === 'boolean']: () => v.toString(),
+      [typeof v === 'object']: () => (<JSONObject data={v} />),
+      [Array.isArray(v)]: () => v.map(item => <JSONObject data={item} />),
+      [v === null]: () => 'null',
+    }[true]()}
   </div>
 );
 
