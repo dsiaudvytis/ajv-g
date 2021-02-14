@@ -2,15 +2,27 @@ import React from 'react';
 import styles from './ajv.module.css';
 import { connect } from 'react-redux';
 
+const isComposite = v => typeof v === 'object' && v !== null;
+
 const JSONObject = ({ data }) => (
   <div className={styles.outerObject}>
     {Object.entries(data).map(([k, v]) => (
-      <div>
+      <div key={k}>
         <div className={styles.key}>{k}: </div>
+        <div className={isComposite(v) ? '' : styles.value}>
+          {{
+            [true]: () => 'unexpected type',
+            [['number', 'string'].includes(typeof v)]: () => v,
+            [typeof v === 'boolean']: () => v.toString(),
+            [typeof v === 'object']: () => (<JSONObject data={v} />),
+            [Array.isArray(v)]: () => '<array>',
+            [v === null]: () => 'null',
+          }[true]()}
+        </div>
       </div>
     ))}
   </div>
-)
+);
 
 const handleFileUpload = (file, update) => {
   const fileReader = new FileReader();
