@@ -4,13 +4,25 @@ import { connect } from 'react-redux';
 
 const isComposite = v => typeof v === 'object' && v !== null;
 
+const opener = v => ({
+  [true]: '',
+  [isComposite(v)]: '{',
+  [Array.isArray(v)]: '[',
+}.true)
+
+const closer = v => ({
+  [true]: '',
+  [isComposite(v)]: '}',
+  [Array.isArray(v)]: ']',
+}.true)
+
 const JSONObject = ({ data }) => (
   <div className={styles.outerObject}>
     {Object.entries(data).map(([k, v]) => (
       <div key={k} className={`${styles.kvPair} ${isComposite(v) ? styles.compositeKV : ''}`}>
-        <div className={styles.key}>{k}: {isComposite(v) ? '{' : ''}</div>
+        <div className={styles.key}>{k}: {opener(v)}</div>
         <JSONValue v={v} />
-        {isComposite(v) ? <div>}</div> : ''}
+        {closer(v)}
       </div>
     ))}
   </div>
@@ -23,7 +35,7 @@ const JSONValue = ({ v }) => (
       [['number', 'string'].includes(typeof v)]: () => v,
       [typeof v === 'boolean']: () => v.toString(),
       [typeof v === 'object']: () => (<JSONObject data={v} />),
-      [Array.isArray(v)]: () => v.map(item => <JSONObject data={item} />),
+      [Array.isArray(v)]: () => v.map((item, n) => <div className={styles.outerObject}><JSONValue v={item} key={n} /></div>),
       [v === null]: () => 'null',
     }[true]()}
   </div>
@@ -71,7 +83,9 @@ export default connect(
       <div className={styles.source}>
         {!sourceDoc ? '' :
           <pre>
+            {'{'}
             <JSONObject data={sourceDoc} />
+            {'}'}
           </pre>
         }
       </div>

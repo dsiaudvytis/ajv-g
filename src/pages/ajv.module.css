@@ -38,9 +38,9 @@
 }
 
 .outerObject {
-  border: solid 1px turquoise;
-  padding: 4px;
-  margin: 2px;
+  /* border: solid 1px turquoise; */
+  padding-left: 1em;
+  /* margin: 2px; */
 }
 
 .kvPair {
@@ -53,13 +53,13 @@
 }
 
 .key {
-  border: solid 1px red;
+  /* border: solid 1px red; */
   /* display: inline; */
-  padding: 2px;
+  /* padding: 2px; */
 }
 
 .value {
-  border: solid 1px blueviolet;
+  /* border: solid 1px blueviolet; */
   /* display: inline; */
-  padding: 2px;
+  /* padding: 2px; */
 }
