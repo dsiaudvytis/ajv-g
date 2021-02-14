@@ -7,8 +7,8 @@ const isComposite = v => typeof v === 'object' && v !== null;
 const JSONObject = ({ data }) => (
   <div className={styles.outerObject}>
     {Object.entries(data).map(([k, v]) => (
-      <div key={k}>
-        <div className={styles.key}>{k}: </div>
+      <div key={k} className={`${styles.kvPair} ${isComposite(v) ? styles.compositeKV : ''}`}>
+        <div className={styles.key}>{k}: {isComposite(v) ? '{' : ''}</div>
         <div className={isComposite(v) ? '' : styles.value}>
           {{
             [true]: () => 'unexpected type',
@@ -19,6 +19,7 @@ const JSONObject = ({ data }) => (
             [v === null]: () => 'null',
           }[true]()}
         </div>
+        {isComposite(v) ? <div>}</div> : ''}
       </div>
     ))}
   </div>

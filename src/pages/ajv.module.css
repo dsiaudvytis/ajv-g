@@ -43,14 +43,23 @@
   margin: 2px;
 }
 
+.kvPair {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.compositeKV {
+  flex-direction: column;
+}
+
 .key {
   border: solid 1px red;
-  display: inline;
+  /* display: inline; */
   padding: 2px;
 }
 
 .value {
   border: solid 1px blueviolet;
-  display: inline;
+  /* display: inline; */
   padding: 2px;
 }
